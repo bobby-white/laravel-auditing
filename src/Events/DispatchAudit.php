@@ -53,6 +53,12 @@ class DispatchAudit
             }
         }
 
+        $excluded = config('audit.exclude_from_serialization', []);
+        foreach ($excluded as $key) {
+            unset($values['model_data']['attributes'][$key]);
+            unset($values['model_data']['original'][$key]);
+        }
+
         return $values;
     }
 
